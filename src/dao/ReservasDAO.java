@@ -1,7 +1,10 @@
 package dao;
+
 import util.Conexao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class ReservasDAO {
     //Obejeto para instanciar claase Conexao para requisitar acesso ao DB
@@ -20,9 +23,7 @@ public class ReservasDAO {
             int linhaAfetada = novoReserva.executeUpdate();
             conndb.close();
             return linhaAfetada > 0;
-        }
-
-        catch (Exception erro) {
+        } catch (Exception erro) {
             System.out.println("Erro ao inserir Reserva" + erro);
             return false;
         }
@@ -43,9 +44,7 @@ public class ReservasDAO {
             int linhaAfetada = alterarReserva.executeUpdate();
             conndb.close();
             return linhaAfetada > 0;
-        }
-
-        catch (Exception erro) {
+        } catch (Exception erro) {
             System.out.println("Erro ao alterar Reserva" + erro);
             return false;
         }
@@ -64,6 +63,25 @@ public class ReservasDAO {
         } catch (Exception erro) {
             System.out.println("Erro ao deletar Reserva" + erro);
             return false;
+        }
+    }
+
+    public void buscarReserva() {
+        try {
+            Connection conndb = conexao.conectar();
+            PreparedStatement pesquisaReserva = conndb.prepareStatement("SELECT id_adicional_fk, id_quarto_fk, id_pedido_fk" + " FROM reservas WHERE id = ?;");
+            pesquisaReserva.setInt(1, 1);
+            ResultSet result = pesquisaReserva.executeQuery();
+
+            while (result.next()) {
+                int id = result.getInt("id_adicional_fk");
+                int quarto = result.getInt("id_quarto_fk");
+                int pedido = result.getInt("id_pedido_fk");
+                System.out.println("ID: " + id + " Quarto: " + quarto + " Pedido: " + pedido);
+            }
+            conndb.close();
+        } catch (Exception erro) {
+            System.out.println("Erro ao buscar Reserva" + erro);
         }
     }
 }

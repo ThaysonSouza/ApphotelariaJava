@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 public class Cliente extends Pessoa {
     private int id;

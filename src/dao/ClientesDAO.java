@@ -4,6 +4,7 @@ import util.Conexao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class ClientesDAO {
     //Obejeto para instanciar claase Conexao para requisitar acesso ao DB
@@ -23,9 +24,7 @@ public class ClientesDAO {
             int linhaAfetada = novoCliente.executeUpdate();
             conndb.close();
             return linhaAfetada > 0;
-        }
-
-        catch (Exception erro) {
+        } catch (Exception erro) {
             System.out.println("Erro ao inserir Cliente" + erro);
             return false;
         }
@@ -47,9 +46,7 @@ public class ClientesDAO {
             int linhaAfetada = alterarCliente.executeUpdate();
             conndb.close();
             return linhaAfetada > 0;
-        }
-
-        catch (Exception erro) {
+        } catch (Exception erro) {
             System.out.println("Erro ao alterar Cliente" + erro);
             return false;
         }
@@ -70,4 +67,25 @@ public class ClientesDAO {
             return false;
         }
     }
+
+    public void buscarCliente() {
+        try {
+            Connection conndb = conexao.conectar();
+            PreparedStatement pesquisaCliente = conndb.prepareStatement("SELECT nome, email, cpf, telefone FROM clientes WHERE id = ?;");
+            pesquisaCliente.setInt(1, 1);
+            ResultSet result = pesquisaCliente.executeQuery();
+
+            while (result.next()) {
+                String nome = result.getString("nome");
+                String email = result.getString("email");
+                String cpf = result.getString("cpf");
+                String telefone = result.getString("telefone");
+                System.out.println("Nome: " + nome + " Email: " + email +  " CPF: " + cpf + " Telefone: " + telefone );
+            }
+            conndb.close();
+        } catch (Exception erro) {
+            System.out.println("Erro ao buscar Cliente" + erro);
+        }
+    }
 }
+

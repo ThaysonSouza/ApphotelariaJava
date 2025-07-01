@@ -4,6 +4,7 @@ import util.Conexao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class RolesDAO {
 
@@ -40,9 +41,7 @@ public class RolesDAO {
             int linhaAfetada = alterarRole.executeUpdate();
             conndb.close();
             return linhaAfetada > 0;
-        }
-
-        catch (Exception erro) {
+        } catch (Exception erro) {
             System.out.println("Erro ao alterar Roles" + erro);
             return false;
         }
@@ -61,6 +60,23 @@ public class RolesDAO {
         } catch (Exception erro) {
             System.out.println("Erro ao deletar role" + erro);
             return false;
+        }
+    }
+    public void buscarRoles() {
+        try {
+            Connection conndb = conexao.conectar();
+            PreparedStatement pesquisaRole = conndb.prepareStatement("SELECT nome, id FROM roles WHERE id = ?;");
+            pesquisaRole.setInt(1, 1);
+            ResultSet result = pesquisaRole.executeQuery();
+
+            while (result.next()) {
+            String nome = result.getString("nome");
+            int id = result.getInt("id");
+            System.out.println("Nome: " + nome + "id: " + id);
+            }
+            conndb.close();
+        } catch (Exception erro) {
+            System.out.println("Erro ao buscar Role" + erro);
         }
     }
 }

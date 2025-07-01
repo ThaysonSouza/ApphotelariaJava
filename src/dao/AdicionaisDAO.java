@@ -1,7 +1,10 @@
 package dao;
+
 import util.Conexao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class AdicionaisDAO {
     //Obejeto para instanciar claase Conexao para requisitar acesso ao DB
@@ -15,14 +18,12 @@ public class AdicionaisDAO {
             PreparedStatement novoAdiocional = conndb.prepareStatement("INSERT INTO adicionais " + "(nome, preco) VALUES (?, ?);");
             //Setar os parametros
             novoAdiocional.setString(1, "sldfkds");
-            novoAdiocional.setDouble(2, 20.99 );
+            novoAdiocional.setDouble(2, 20.99);
 
             int linhaAfetada = novoAdiocional.executeUpdate();
             conndb.close();
             return linhaAfetada > 0;
-        }
-
-        catch (Exception erro) {
+        } catch (Exception erro) {
             System.out.println("Erro ao inserir adiocional" + erro);
             return false;
         }
@@ -41,10 +42,8 @@ public class AdicionaisDAO {
             int linhaAfetada = alterarAdicionais.executeUpdate();
             conndb.close();
             return linhaAfetada > 0;
-        }
-
-        catch (Exception erro) {
-            System.out.println("Erro ao alterar Pedido" + erro);
+        } catch (Exception erro) {
+            System.out.println("Erro ao alterar Adicional" + erro);
             return false;
         }
     }
@@ -62,6 +61,23 @@ public class AdicionaisDAO {
         } catch (Exception erro) {
             System.out.println("Erro ao deletar Adicional" + erro);
             return false;
+        }
+    }
+    public void buscarAdicionais() {
+        try {
+            Connection conndb = conexao.conectar();
+            PreparedStatement pesquisaAdicionais = conndb.prepareStatement("SELECT nome, preco FROM adicionais WHERE id = ?;");
+            pesquisaAdicionais.setInt(1, 1);
+            ResultSet result = pesquisaAdicionais.executeQuery();
+
+            while (result.next()) {
+                String nome = result.getString("nome");
+                double preco = result.getDouble("preco");
+                System.out.println("Nome: " + nome + "Preco: " + preco);
+            }
+            conndb.close();
+        } catch (Exception erro) {
+            System.out.println("Erro ao buscar Adicional" + erro);
         }
     }
 }

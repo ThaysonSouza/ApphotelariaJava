@@ -1,4 +1,5 @@
 package view;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,13 +20,14 @@ import view.components.PainelBotoes;
 import view.components.Sidebar;
 
 
-public class CadUsuario  extends Application {
+public class CadUsuario extends Application {
 
 
     public static void main(String[] args) {
         launch(args);//inicializa o JAVAFX
 
     }
+
     @Override
     public void start(Stage janela) throws Exception {
 

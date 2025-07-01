@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 public class Quarto {
     private int id;

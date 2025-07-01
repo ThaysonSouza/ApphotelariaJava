@@ -49,12 +49,12 @@ public class LoginCliente extends Application {
         Label lblUsuario = new Label("Usuário:");
         TextField txtUsuario = new TextField();
         txtUsuario.setPromptText("Digite seu usuário");
-        lblUsuario.setFont(Font.font(fontRegular.getFamily(), 15));
-        txtUsuario.setFont(Font.font(fontRegular.getFamily(), 15));
+        lblUsuario.setFont(Font.font(fontRegular.getFamily(), 13));
+        txtUsuario.setFont(Font.font(fontRegular.getFamily(), 13));
 
 
         Label lblSenha = new Label("Senha:");
-        lblSenha.setFont(Font.font(fontRegular.getFamily(), 15));
+        lblSenha.setFont(Font.font(fontRegular.getFamily(), 13));
 
         PasswordField campoSenha = new PasswordField();
         campoSenha.setPromptText("Digite sua senha");
@@ -118,7 +118,7 @@ public class LoginCliente extends Application {
                 //Formulário com GridPane
         GridPane gridForm = new GridPane();
 
-        gridForm.setHgap(10);
+        gridForm.setHgap(5);
         gridForm.setVgap(15);
         gridForm.setAlignment(Pos.CENTER);
         gridForm.add(lblUsuario, 0, 0);

@@ -1,7 +1,7 @@
 package util;
 
-import controller.Cliente;
-import controller.Usuario;
+import controller.UsuariosController;
+import model.Usuario;
 import dao.*;
 
 import java.sql.Connection;
@@ -9,6 +9,10 @@ import java.sql.Connection;
 public class TesteConexao {
     public static void main(String[] args) {
         Conexao conexao = new Conexao();
+
+        UsuariosController usuariosController = new UsuariosController();
+        //Novo objeto criado(nova instancia da classe model.Usuarios )
+//        Usuario usuario = new Usuario("Pamella", "pamella@gmail.com", "123", 1);
 //      class   objeto        construtor
         Connection condb = conexao.conectar();
         if (condb != null) {
@@ -95,6 +99,22 @@ public class TesteConexao {
 //                AdicionaisDAO adicionaisDAO = new AdicionaisDAO();
 //                adicionaisDAO.alterarAdicionais();
 //                System.out.println("Adicionais alterado com sucesso!");
+
+                //COMANDOS SELECT
+//                UsuariosDAO usuariosDAO = new UsuariosDAO();
+//                usuariosDAO.autenticarUsuario(usuario);// objeto passasdo como parametro para autenticaçao
+//                System.out.println("Usuario autenticado com sucesso!");
+
+//                QuartosDAO quartosDAO = new QuartosDAO();
+//                quartosDAO.buscarQuarto();
+//                System.out.println("Quarto encontrado com sucesso!");
+
+//                ClientesDAO clientesDAO = new ClientesDAO();
+//                clientesDAO.buscarCliente();
+//                System.out.println("Cliente encontrados com sucesso!");
+
+                //Testando a autenticaçao de um usuario
+                usuariosController.verificarCredencias("pamella@gmail.com", "123");
 
                 condb.close();
                 System.out.println("Conexão encerrada");

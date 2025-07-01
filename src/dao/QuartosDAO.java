@@ -4,6 +4,7 @@ import util.Conexao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class QuartosDAO {
     //Obejeto para instanciar claase Conexao para requisitar acesso ao DB
@@ -27,9 +28,7 @@ public class QuartosDAO {
             int linhaAfetada = novoQuarto.executeUpdate();
             conndb.close();
             return linhaAfetada > 0;
-        }
-
-        catch (Exception erro) {
+        } catch (Exception erro) {
             System.out.println("Erro ao inserir Quarto" + erro);
             return false;
         }
@@ -40,7 +39,7 @@ public class QuartosDAO {
             Connection conndb = conexao.conectar();
             PreparedStatement alterarQuarto = conndb.prepareStatement("UPDATE Quartos " +
                     "SET nome = ?, numero = ?, camaSolteiro = ?, camaCasal = ?, disponivel = ?, preco = ?"
-            + " WHERE id = ?;");
+                    + " WHERE id = ?;");
 
             alterarQuarto.setString(1, "Quarto family");
             alterarQuarto.setString(2, "333");
@@ -53,9 +52,7 @@ public class QuartosDAO {
             int linhaAfetada = alterarQuarto.executeUpdate();
             conndb.close();
             return linhaAfetada > 0;
-        }
-
-        catch (Exception erro) {
+        } catch (Exception erro) {
             System.out.println("Erro ao alterar Quarto" + erro);
             return false;
         }
@@ -74,6 +71,29 @@ public class QuartosDAO {
         } catch (Exception erro) {
             System.out.println("Erro ao deletar Quarto" + erro);
             return false;
+        }
+    }
+
+    public void buscarQuarto() {
+        try {
+            Connection conndb = conexao.conectar();
+            PreparedStatement pesquisaQuarto = conndb.prepareStatement("SELECT nome, numero, camaSolteiro, camaCasal, disponivel, preco"
+                    + " FROM quartos WHERE id = ?;");
+            pesquisaQuarto.setInt(1, 1);
+            ResultSet result = pesquisaQuarto.executeQuery();
+
+            while (result.next()) {
+                String nome = result.getString("nome");
+                String numero = result.getString("numero");
+                int camaSolteiro = result.getInt("camaSolteiro");
+                int camaCasal = result.getInt("camaCasal");
+                boolean disponivel = result.getBoolean("disponivel");
+                double preco = result.getDouble("preco");
+                System.out.println("Nome: " + nome + " Numero: " + numero + " CamaSolteiro: " + camaSolteiro + " CamaCasal: " + camaCasal + " Disponivel: " + disponivel + " Preco: " + preco);
+            }
+            conndb.close();
+        } catch (Exception erro) {
+            System.out.println("Erro ao buscar quarto" + erro);
         }
     }
 }

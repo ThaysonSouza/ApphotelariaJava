@@ -4,6 +4,7 @@ import util.Conexao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class PedidosDAO {
     //Obejeto para instanciar claase Conexao para requisitar acesso ao DB
@@ -22,9 +23,7 @@ public class PedidosDAO {
             int linhaAfetada = novoPedido.executeUpdate();
             conndb.close();
             return linhaAfetada > 0;
-        }
-
-        catch (Exception erro) {
+        } catch (Exception erro) {
             System.out.println("Erro ao inserir Pedido" + erro);
             return false;
         }
@@ -46,9 +45,7 @@ public class PedidosDAO {
             int linhaAfetada = alterarPedido.executeUpdate();
             conndb.close();
             return linhaAfetada > 0;
-        }
-
-        catch (Exception erro) {
+        } catch (Exception erro) {
             System.out.println("Erro ao alterar Pedido" + erro);
             return false;
         }
@@ -67,6 +64,27 @@ public class PedidosDAO {
         } catch (Exception erro) {
             System.out.println("Erro ao deletar Pedido" + erro);
             return false;
+        }
+    }
+
+    public void buscarPedido() {
+
+        try {
+            Connection conndb = conexao.conectar();
+            PreparedStatement pesquisaPedido = conndb.prepareStatement("SELECT id_usuario_fk, id_cliente_fk, pagamento FROM usuarios WHERE id = ?;");
+            pesquisaPedido.setInt(1, 2);
+            ResultSet result = pesquisaPedido.executeQuery();
+
+            while (result.next()) {
+                int id_usuario_fk = result.getInt("id_usuario_fk");
+                int id_cliente_fk = result.getInt("id_cliente_fk");
+                String pagamento = result.getString("pagamento");
+
+                System.out.println("id_usuario_Fk: " + id_usuario_fk + " id_cliente_fk: " + id_cliente_fk + " Pagamento:" + pagamento);
+            }
+            conndb.close();
+        } catch (Exception erro) {
+            System.out.println("Erro ao buscar Pedido" + erro);
         }
     }
 }

@@ -25,15 +25,14 @@ public class Conexao {
 
     private void carregarConfiguracoes() {
         Properties props = new Properties();
-        try ( InputStream inputPropsConfig = getClass().getClassLoader().getResourceAsStream
+        try (InputStream inputPropsConfig = getClass().getClassLoader().getResourceAsStream
                 ("config.properties")) {
             props.load(inputPropsConfig);
             driver = props.getProperty("driver");
             url = props.getProperty("url");
             usuario = props.getProperty("usuario");
             senha = props.getProperty("senha");
-        }
-        catch (IOException erro){
+        } catch (IOException erro) {
             System.out.println("Erro ao carregar configuraçoes: " + erro.getMessage());
         }
     }

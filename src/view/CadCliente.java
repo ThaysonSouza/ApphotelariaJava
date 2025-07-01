@@ -1,4 +1,5 @@
 package view;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,18 +20,19 @@ import view.components.PainelBotoes;
 import view.components.Sidebar;
 
 
-public class CadCliente  extends Application {
+public class CadCliente extends Application {
 
 
     public static void main(String[] args) {
-       launch(args);//inicializa o JAVAFX
+        launch(args);//inicializa o JAVAFX
 
     }
+
     @Override
     public void start(Stage janela) throws Exception {
 
         PainelBotoes botoes = new PainelBotoes();
-        Sidebar  menu   = new Sidebar();
+        Sidebar menu = new Sidebar();
 //      class    objeto   construtor
 
         //carregar imagem
@@ -61,7 +63,7 @@ public class CadCliente  extends Application {
         HBox tituloBox = new HBox(ImgUserBlack, lblTitulo);
         tituloBox.setAlignment(Pos.CENTER);
         tituloBox.setSpacing(10); //Espaço
-        tituloBox.setPadding(new Insets (20,20,20,20)); //Espaçamento
+        tituloBox.setPadding(new Insets(20, 20, 20, 20)); //Espaçamento
         tituloBox.setAlignment(Pos.CENTER);
 
         Label lblNome = new Label("NOME: ");
@@ -109,7 +111,7 @@ public class CadCliente  extends Application {
         FormGrid.add(txtEmail, 1, 2);
         FormGrid.add(boxEmail, 2, 2); //Selecionar
 
-        FormGrid.setPadding(new Insets(20,20,20,20));
+        FormGrid.setPadding(new Insets(20, 20, 20, 20));
 
         FormGrid.setAlignment(Pos.CENTER);//Centraliza os elementos
         FormGrid.setHgap(10); // Espaço/Lacuna Horizontal
@@ -118,12 +120,12 @@ public class CadCliente  extends Application {
 
         FormGrid.add(botoes, 1, 4);//Chamando os botoes
 
-        VBox layout = new VBox(10,tituloBox,FormGrid); //Layout inteiro
+        VBox layout = new VBox(10, tituloBox, FormGrid); //Layout inteiro
         layout.setAlignment(Pos.CENTER);
         mainPane.setCenter(layout);
 
         Scene scene = new Scene(mainPane, 800, 500);
-                                        //Largura   Altura
+        //Largura   Altura
 
         janela.setTitle("Grand hotel"); //Titulo da janela
 
@@ -148,12 +150,10 @@ public class CadCliente  extends Application {
                     if (index < value.length()) {
                         formatacaoCampo.append(value.charAt(index));
                         index++;
-                    }
-                    else {
+                    } else {
                         break;
                     }
-                }
-                else {
+                } else {
                     formatacaoCampo.append(caracter);
                 }
             }
